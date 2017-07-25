@@ -1,7 +1,7 @@
 defmodule TaskBunnyRollbar.Mixfile do
   use Mix.Project
 
-  @version "0.1.0"
+  @version "0.1.1"
   @description "TaskBunny job failure backend that reports the error to Rollbar"
 
   def project do

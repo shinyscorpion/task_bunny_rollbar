@@ -12,7 +12,7 @@ TaskBunny failure backend for Rollbar.
 
 ```elixir
 def deps do
-  [{:task_bunny_rollbar, "~> 0.1.0"}]
+  [{:task_bunny_rollbar, "~> 0.1.1"}]
 end
 ```
 
