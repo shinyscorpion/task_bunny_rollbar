@@ -6,32 +6,51 @@ defmodule TaskBunnyRollbar do
   alias TaskBunny.JobError
 
   def report_job_error(error = %JobError{error_type: :exception}) do
-    report :error, error.exception, error
+    report_error :error, error.exception, error
   end
 
   def report_job_error(error = %JobError{error_type: :exit}) do
-    report :exit, error.reason, error
+    report_error :exit, error.reason, error
   end
 
   def report_job_error(error = %JobError{error_type: :return_value}) do
-    report :exit, :task_bunny_job_return_value_error, error
+    "#{error.job}: return value error"
+    |> report_message(error)
   end
 
   def report_job_error(error = %JobError{error_type: :timeout}) do
-    report :exit, :task_bunny_job_timeout_error, error
+    "#{error.job}: timeout error"
+    |> report_message(error)
   end
 
   def report_job_error(error = %JobError{}) do
-    report :exit, :task_bunny_job_unknown_type_error, error
+    "#{error.job}: unknown error"
+    |> report_message(error)
   end
 
-  defp report(kind, rollbar_error, error) do
+  defp report_error(kind, rollbar_error, error) do
     Rollbax.report(
       kind,
       rollbar_error,
       error.stacktrace || [],
       custom(error),
       occurrence(error)
+    )
+  end
+
+  defp report_message(message, error) do
+    # Rollbax doesn't do a good job to report non exception.
+    # Use private module to report.
+    body = %{
+      "message" => %{
+        "body" => message,
+        "job" => error.job
+      }
+    }
+
+    Rollbax.Client.emit(
+      :error, unix_time(), body,
+      custom(error), occurrence(error)
     )
   end
 
@@ -52,5 +71,10 @@ defmodule TaskBunnyRollbar do
       return_value: inspect(error.return_value),
       pid: inspect(error.pid)
     })
+  end
+
+  defp unix_time() do
+    {mgsec, sec, _usec} = :os.timestamp()
+    mgsec * 1_000_000 + sec
   end
 end
