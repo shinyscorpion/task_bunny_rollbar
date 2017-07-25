@@ -2,6 +2,7 @@ defmodule TaskBunnyRollbar.Mixfile do
   use Mix.Project
 
   @version "0.1.0"
+  @description "TaskBunny job failure backend that reports the error to Rollbar"
 
   def project do
     [
@@ -11,7 +12,14 @@ defmodule TaskBunnyRollbar.Mixfile do
       elixirc_paths: elixirc_paths(Mix.env),
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
-      deps: deps()
+      deps: deps(),
+      docs: [
+        extras: ["README.md"], main: "readme",
+        source_ref: "v#{@version}",
+        source_url: "https://github.com/shinyscorpion/task_bunny_rollbar"
+      ],
+      description: @description,
+      package: package()
     ]
   end
 
@@ -26,8 +34,31 @@ defmodule TaskBunnyRollbar.Mixfile do
 
   defp deps do
     [
+      {:rollbax, "~> 0.6"},
       {:task_bunny, "~> 0.2"},
-      {:rollbax, "~> 0.6"}
+
+      # dev
+      {:ex_doc, "~> 0.14", only: :dev},
+      {:inch_ex, "~> 0.5", only: :dev}
+    ]
+  end
+
+  defp package do
+    [
+      name: :task_bunny_rollbar,
+      files: [
+        "mix.exs", "README.md", "LICENSE.md", # Project files
+        "lib"
+      ],
+      maintainers: [
+        "Elliott Hilaire",
+        "Francesco Grammatico",
+        "Ian Luites",
+        "Ricardo Perez",
+        "Tatsuya Ono"
+      ],
+      licenses: ["MIT"],
+      links: %{"Github" => "https://github.com/shinyscorpion/task_bunny_rollbar"}
     ]
   end
 end
