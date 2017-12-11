@@ -34,7 +34,7 @@ defmodule TaskBunnyRollbar.Mixfile do
 
   defp deps do
     [
-      {:rollbax, ">= 0.6.0 and < 0.9.0"},
+      {:rollbax, "~> 0.9.0-rc.1"},
       {:task_bunny, "~> 0.2"},
 
       # dev
