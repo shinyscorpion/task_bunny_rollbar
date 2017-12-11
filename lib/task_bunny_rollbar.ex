@@ -39,8 +39,6 @@ defmodule TaskBunnyRollbar do
   end
 
   defp report_message(message, error) do
-    # Rollbax doesn't do a good job to report non exception.
-    # Use private module to report.
     body = %{
       "message" => %{
         "body" => message,
@@ -48,9 +46,8 @@ defmodule TaskBunnyRollbar do
       }
     }
 
-    Rollbax.Client.emit(
-      :error, unix_time(), body,
-      custom(error), occurrence(error)
+    Rollbax.report_message(
+      :error, inspect(body), custom(error), occurrence(error)
     )
   end
 
@@ -71,10 +68,5 @@ defmodule TaskBunnyRollbar do
       return_value: inspect(error.return_value),
       pid: inspect(error.pid)
     })
-  end
-
-  defp unix_time() do
-    {mgsec, sec, _usec} = :os.timestamp()
-    mgsec * 1_000_000 + sec
   end
 end
