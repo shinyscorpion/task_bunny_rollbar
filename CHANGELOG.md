@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0-rc.1
+
+* Support Rollbax 0.9.0-rc.1
+
 ## 0.1.2
 
 * Lock Rollbax version under 0.9.x as it has some significant update. We will
