@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.2
+
+* Tidy up changelog
+* Republish clean version to hex due to bad publish, use 0.2.2 instead of 0.2.1
+
+## 0.2.1
+
+* Update ex_doc
+* 0.2.0 is not a published version due to this
+
 ## 0.2.0
 
 * Update rollbax to v0.11.x
