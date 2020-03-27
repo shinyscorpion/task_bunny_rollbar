@@ -9,12 +9,13 @@ defmodule TaskBunnyRollbar.Mixfile do
       app: :task_bunny_rollbar,
       version: @version,
       elixir: "~> 1.4",
-      elixirc_paths: elixirc_paths(Mix.env),
-      build_embedded: Mix.env == :prod,
-      start_permanent: Mix.env == :prod,
+      elixirc_paths: elixirc_paths(Mix.env()),
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
       deps: deps(),
       docs: [
-        extras: ["README.md"], main: "readme",
+        extras: ["README.md"],
+        main: "readme",
         source_ref: "v#{@version}",
         source_url: "https://github.com/shinyscorpion/task_bunny_rollbar"
       ],
@@ -34,7 +35,7 @@ defmodule TaskBunnyRollbar.Mixfile do
 
   defp deps do
     [
-      {:rollbax, "~> 0.9.0-rc.1"},
+      {:rollbax, "~> 0.11"},
       {:task_bunny, "~> 0.2"},
 
       # dev
@@ -47,13 +48,17 @@ defmodule TaskBunnyRollbar.Mixfile do
     [
       name: :task_bunny_rollbar,
       files: [
-        "mix.exs", "README.md", "LICENSE.md", # Project files
+        # Project files
+        "mix.exs",
+        "README.md",
+        "LICENSE.md",
         "lib"
       ],
       maintainers: [
         "Elliott Hilaire",
         "Francesco Grammatico",
         "Ian Luites",
+        "Kenneth Lee",
         "Ricardo Perez",
         "Tatsuya Ono"
       ],
