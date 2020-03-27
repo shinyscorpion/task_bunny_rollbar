@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.0
+
+* Update rollbax to v0.11.x
+* Compiles with Elixir 1.10.2
+
 ## 0.2.0-rc.1
 
 * Support Rollbax 0.9.0-rc.1
